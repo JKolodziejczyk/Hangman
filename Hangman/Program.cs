@@ -139,11 +139,21 @@ namespace Hangman
             Console.ReadKey();
         }
 
+        public static void AddScore()
+        {
+            
+        }
         public static void Win(int lives, int letters)
         {
             Console.Clear();
             PrintCenter("You won");
             PrintStatsWon(lives,letters);
+            PrintCenter("Do you want to add your score to high score list?");
+            string answer=Console.ReadLine();
+            if (answer == "yes")
+            {
+                AddScore();
+            }
             Console.ReadKey();
         }
 
@@ -162,13 +172,58 @@ namespace Hangman
             Console.SetCursorPosition((Console.WindowWidth - s.Length) / 2, Console.CursorTop);
             Console.WriteLine(s);
         }
+
+        public static bool LetterOrCity()
+        {
+            Console.WriteLine("Choose if you want to type letter or city");
+            string choose = Console.ReadLine();
+            choose = choose.ToLower();
+            switch (choose)
+            {
+                    case "letter":
+                    {
+                        return true;
+                    }
+                    case "city":
+                    {
+                        return false;
+                    }
+                    default:
+                    {
+                        break;
+                    }
+            }
+
+            return LetterOrCity();
+        }
+
+        public static string GuessCity(string City)
+        {
+            string attempt;
+            Console.WriteLine("Guess city");
+            attempt = Console.ReadLine();
+            Console.Clear();
+            return attempt;
+        }
+
+        public static bool CheckCity(string attempt,string City)
+        {
+            attempt = attempt.ToUpper();
+            attempt = attempt.Trim();
+            if (attempt == City)
+            {
+                return true;
+            }
+
+            return false;
+        }
         public static void Game()
         {
             int lives = 5;
             NewGame();
             var City_with_country=GetCityNameAndCountryName();
             var Guessed_Letters = new List<char>();
-            while (lives != 0)
+            while (lives >= 0)
             {
                 Console.WriteLine("You have {0} lives",lives);
                 if(lives==2 || lives==1) Console.WriteLine("Its capital of {0}", City_with_country[1]);
@@ -177,13 +232,25 @@ namespace Hangman
                     Win(lives,Guessed_Letters.Count);
                     break;
                 };
-                if (CheckLetter(GuessLetter(Guessed_Letters), City_with_country) == false)
+                UsedLetters(Guessed_Letters);
+                bool chosen_letter = LetterOrCity();
+                if (chosen_letter)
                 {
-                    lives--;
+                    if (CheckLetter(GuessLetter(Guessed_Letters), City_with_country) == false)
+                    {
+                        lives--;
+                    }
+                }
+                else if (CheckCity(GuessCity(City_with_country[0]),City_with_country[0]) == false)
+                {
+                    Console.WriteLine("You lost 2 lives");
+                    Thread.Sleep(2000);
+                    Console.Clear();
+                    lives -= 2;
                 }
             }
 
-            if (lives == 0)
+            if (lives <= 0)
             {
                 Lose(Guessed_Letters.Count,City_with_country[0]);
             }
@@ -213,9 +280,28 @@ namespace Hangman
             Console.Clear();
             return false;
         }
+
+        public static void UsedLetters(List<char> Letters)
+        {
+            Console.WriteLine("Used Letters:");
+            foreach (var ch in Letters)
+            {
+                Console.Write(ch+" ");
+            }
+            Console.WriteLine();
+        }
         static void Main(string[] args)
         {
             Game();
+            bool newgame = false;
+            Console.WriteLine("Do you want to start new game? (yes or no)");
+            string answer = Console.ReadLine();
+            if (answer == "yes") newgame = true;
+            if (answer == "no") newgame = false;
+            while (newgame)
+            {
+                Game();
+            }
         }
     }
 }
