@@ -140,7 +140,7 @@ namespace Hangman
             Console.ReadKey();
         }
 
-        public static void AddScore()
+        public static void AddScore() //TODO
         {
             
         }
@@ -199,6 +199,10 @@ namespace Hangman
             return LetterOrCity();
         }
 
+        public static void GraphicalHangman() //TODO
+        {
+            
+        }
         public static string GuessCity(string City)
         {
             string attempt;
