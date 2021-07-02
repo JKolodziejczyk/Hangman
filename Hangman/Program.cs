@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System;
+using System.Diagnostics;
 using System.Threading;
 
 namespace Hangman
@@ -143,24 +144,24 @@ namespace Hangman
         {
             
         }
-        public static void Win(int lives, int letters)
+        public static void Win(int lives, int letters, int ElapsedTime)
         {
             Console.Clear();
             PrintCenter("You won");
-            PrintStatsWon(lives,letters);
+            PrintStatsWon(lives,letters, ElapsedTime);
             PrintCenter("Do you want to add your score to high score list?");
             string answer=Console.ReadLine();
             if (answer == "yes")
             {
                 AddScore();
             }
-            Console.ReadKey();
         }
 
-        public static void PrintStatsWon(int lives, int letters)
+        public static void PrintStatsWon(int lives, int letters, int ElapsedTime)
         {
             Console.WriteLine("Remaining lives {0}",lives);
             Console.WriteLine("Guessed letters: {0}", letters);
+            Console.WriteLine("Time: {0}", ElapsedTime);
         }
         public static void PrintStatsLost(int letters, string City)
         {
@@ -178,6 +179,7 @@ namespace Hangman
             Console.WriteLine("Choose if you want to type letter or city");
             string choose = Console.ReadLine();
             choose = choose.ToLower();
+            choose = choose.Trim();
             switch (choose)
             {
                     case "letter":
@@ -219,19 +221,26 @@ namespace Hangman
         }
         public static void Game()
         {
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
             int lives = 5;
             NewGame();
             var City_with_country=GetCityNameAndCountryName();
             var Guessed_Letters = new List<char>();
             while (lives >= 0)
             {
-                Console.WriteLine("You have {0} lives",lives);
-                if(lives==2 || lives==1) Console.WriteLine("Its capital of {0}", City_with_country[1]);
+                Console.WriteLine("You have {0} lives", lives);
+                if (lives == 2 || lives == 1) Console.WriteLine("Its capital of {0}", City_with_country[1]);
                 if (IsWinner(WriteCity(Guessed_Letters, City_with_country)) == true)
                 {
-                    Win(lives,Guessed_Letters.Count);
+                    stopWatch.Stop();
+                    TimeSpan ts = stopWatch.Elapsed;
+                    int ElapsedTime = ts.Seconds;
+                    Win(lives, Guessed_Letters.Count, ElapsedTime);
                     break;
-                };
+                }
+
+                ;
                 UsedLetters(Guessed_Letters);
                 bool chosen_letter = LetterOrCity();
                 if (chosen_letter)
@@ -241,17 +250,29 @@ namespace Hangman
                         lives--;
                     }
                 }
-                else if (CheckCity(GuessCity(City_with_country[0]),City_with_country[0]) == false)
+                else
                 {
-                    Console.WriteLine("You lost 2 lives");
-                    Thread.Sleep(2000);
-                    Console.Clear();
-                    lives -= 2;
+                    if (CheckCity(GuessCity(City_with_country[0]), City_with_country[0]) == false)
+                    {
+                        Console.WriteLine("You lost 2 lives");
+                        Thread.Sleep(2000);
+                        Console.Clear();
+                        lives -= 2;
+                    }
+                    else
+                    {
+                        stopWatch.Stop();
+                        TimeSpan ts = stopWatch.Elapsed;
+                        int ElapsedTime = ts.Seconds;
+                        Win(lives, Guessed_Letters.Count, ElapsedTime);
+                        break;
+                    }
                 }
             }
 
             if (lives <= 0)
             {
+                stopWatch.Stop();
                 Lose(Guessed_Letters.Count,City_with_country[0]);
             }
         }
@@ -294,12 +315,13 @@ namespace Hangman
         {
             Game();
             bool newgame = false;
-            Console.WriteLine("Do you want to start new game? (yes or no)");
+            Console.WriteLine("Do you want to start new game?");
             string answer = Console.ReadLine();
             if (answer == "yes") newgame = true;
             if (answer == "no") newgame = false;
             while (newgame)
             {
+                Console.Clear();
                 Game();
             }
         }

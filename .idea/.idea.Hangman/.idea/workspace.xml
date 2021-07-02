@@ -4,7 +4,7 @@
     <projectFile>Hangman/Hangman.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2efe78b2-c596-4701-bec5-d5503581ec64" name="Default Changelist" comment="">
+    <list default="true" id="2efe78b2-c596-4701-bec5-d5503581ec64" name="Default Changelist" comment="Possibility of guessing whole city, list of used letters">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Hangman/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Hangman/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hangman/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Hangman/Program.cs" afterDir="false" />
     </list>
@@ -23,6 +23,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Users/Jakub/RiderProjects/Hangman/Hangman/Program.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -72,7 +75,7 @@
       <option name="presentableId" value="Default" />
       <updated>1625222098693</updated>
       <workItem from="1625222111117" duration="7904000" />
-      <workItem from="1625231642305" duration="1714000" />
+      <workItem from="1625231642305" duration="2825000" />
     </task>
     <task id="LOCAL-00001" summary="Finished game">
       <created>1625229294641</created>
@@ -81,7 +84,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625229294641</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Possibility of guessing whole city, list of used letters">
+      <created>1625233618311</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1625233618311</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -104,6 +114,7 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Finished game" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished game" />
+    <MESSAGE value="Possibility of guessing whole city, list of used letters" />
+    <option name="LAST_COMMIT_MESSAGE" value="Possibility of guessing whole city, list of used letters" />
   </component>
 </project>
