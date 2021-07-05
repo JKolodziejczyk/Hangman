@@ -1,6 +1,0 @@
-Jakub | 42 | 7 | DAKAR |
-Jakub | 56 | 1 | DUBLIN |
-Jakub | 35 | 4 | PRAIA |
-Jakub | 49 | 3 | MBABANE |
-Jakub | 53 | 2 | BUCHAREST |
-Jakub | 39 | 6 | MANILA |
