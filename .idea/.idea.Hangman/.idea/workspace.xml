@@ -4,7 +4,7 @@
     <projectFile>Hangman/Hangman.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2efe78b2-c596-4701-bec5-d5503581ec64" name="Default Changelist" comment="Possibility of guessing whole city, list of used letters">
+    <list default="true" id="2efe78b2-c596-4701-bec5-d5503581ec64" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Hangman/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Hangman/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hangman/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Hangman/Program.cs" afterDir="false" />
     </list>
@@ -25,7 +25,10 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/Users/Jakub/RiderProjects/Hangman/Hangman/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2E9BEEB1-8083-4F4B-9ABE-A5F3DB1BC8BD/4b/7a6ca491/String.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Hangman/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/C4D96FB3-7EBC-4F9A-B1E4-2A556E9949B1/23/File.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2E9BEEB1-8083-4F4B-9ABE-A5F3DB1BC8BD/B7/Number.Parsing.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -39,9 +42,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34994584" />
+    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -75,7 +81,9 @@
       <option name="presentableId" value="Default" />
       <updated>1625222098693</updated>
       <workItem from="1625222111117" duration="7904000" />
-      <workItem from="1625231642305" duration="2825000" />
+      <workItem from="1625231642305" duration="4130000" />
+      <workItem from="1625317527816" duration="409000" />
+      <workItem from="1625476039334" duration="6548000" />
     </task>
     <task id="LOCAL-00001" summary="Finished game">
       <created>1625229294641</created>
@@ -91,7 +99,21 @@
       <option name="project" value="LOCAL" />
       <updated>1625233618311</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Bugfix and adding timer and the end">
+      <created>1625234537517</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1625234537517</updated>
+    </task>
+    <task id="LOCAL-00004" summary="TODO: add high score list and graphical hangman">
+      <created>1625234802850</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1625234802850</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -115,6 +137,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Finished game" />
     <MESSAGE value="Possibility of guessing whole city, list of used letters" />
-    <option name="LAST_COMMIT_MESSAGE" value="Possibility of guessing whole city, list of used letters" />
+    <MESSAGE value="Bugfix and adding timer and the end" />
+    <MESSAGE value="TODO: add high score list and graphical hangman" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>

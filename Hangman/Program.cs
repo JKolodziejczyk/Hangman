@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 
 namespace Hangman
@@ -106,19 +106,23 @@ namespace Hangman
             string ActualCity="";
             foreach (var ch in City[0])
             {
-                bool Guessed = false;
-                foreach (var va in GuessedLetters)
+                if (ch == ' ') ActualCity += " ";
+                else
                 {
-                    if (va == ch)
+                    bool Guessed = false;
+                    foreach (var va in GuessedLetters)
                     {
-                        Guessed = true;
-                        ActualCity += ch;
+                        if (va == ch)
+                        {
+                            Guessed = true;
+                            ActualCity += ch;
+                        }
                     }
-                }
 
-                if (!Guessed)
-                {
-                    ActualCity += "_";
+                    if (!Guessed)
+                    {
+                        ActualCity += "_";
+                    }
                 }
             }
             PrintCenter(ActualCity);
@@ -137,14 +141,58 @@ namespace Hangman
             Console.Clear();
             Console.WriteLine("You lost");
             PrintStatsLost(Letters,City);
-            Console.ReadKey();
+            StickmanDrawing(0);
+            PrintHighScores();
         }
 
-        public static void AddScore() //TODO
+        public static void AddScore(int time, int tries, string word)
         {
-            
+            Console.WriteLine("Give your name");
+            var name=Console.ReadLine();
+            string fileName = @"scorelog.txt";
+            using (FileStream fs = new FileStream(fileName,FileMode.Append, FileAccess.Write))
+            using (StreamWriter sw = new StreamWriter(fs))
+            {
+                sw.WriteLine("{0} | {1} | {2} | {3} |",name,time,tries,word);
+            }
         }
-        public static void Win(int lives, int letters, int ElapsedTime)
+
+        public class HighScoreEntry
+        {
+            public string PlayerName;
+            public string Time;
+            public string Letters;
+            public string City;
+            public HighScoreEntry(string playerName, string time, string letters, string city)
+            {
+                PlayerName = playerName;
+                Time = time;
+                Letters = letters;
+                City = city;
+            }
+        }
+
+        public static void PrintHighScores()
+        {
+            List<HighScoreEntry> AllScores = new List<HighScoreEntry>();
+            using (System.IO.StreamReader sr = new StreamReader("scorelog.txt"))
+            {
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    string[] lineParts = line.Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
+                    AllScores.Add(new HighScoreEntry(lineParts[0], lineParts[1], lineParts[2], lineParts[3]));
+                }
+                List<HighScoreEntry> SortedList = AllScores.OrderBy(i => i.Time).Take(10).ToList<HighScoreEntry>();
+                string HighScoreText = "Player | Score | Letters | City \n";
+                foreach (HighScoreEntry item in SortedList)
+                {
+                    HighScoreText += item.PlayerName + "|" + item.Time + "|" + item.Letters + "|" + item.City + "\n";
+                }
+                Console.WriteLine(HighScoreText);
+            }
+        }
+        public static void Win(int lives, int letters, int ElapsedTime, string City)
         {
             Console.Clear();
             PrintCenter("You won");
@@ -153,15 +201,16 @@ namespace Hangman
             string answer=Console.ReadLine();
             if (answer == "yes")
             {
-                AddScore();
+                AddScore(ElapsedTime, letters, City);
             }
+            PrintHighScores();
         }
 
         public static void PrintStatsWon(int lives, int letters, int ElapsedTime)
         {
             Console.WriteLine("Remaining lives {0}",lives);
             Console.WriteLine("Guessed letters: {0}", letters);
-            Console.WriteLine("Time: {0}", ElapsedTime);
+            Console.WriteLine("Time: {0} seconds", ElapsedTime);
         }
         public static void PrintStatsLost(int letters, string City)
         {
@@ -190,18 +239,9 @@ namespace Hangman
                     {
                         return false;
                     }
-                    default:
-                    {
-                        break;
-                    }
             }
 
             return LetterOrCity();
-        }
-
-        public static void GraphicalHangman() //TODO
-        {
-            
         }
         public static string GuessCity(string City)
         {
@@ -231,7 +271,7 @@ namespace Hangman
             NewGame();
             var City_with_country=GetCityNameAndCountryName();
             var Guessed_Letters = new List<char>();
-            while (lives >= 0)
+            while (lives > 0)
             {
                 Console.WriteLine("You have {0} lives", lives);
                 if (lives == 2 || lives == 1) Console.WriteLine("Its capital of {0}", City_with_country[1]);
@@ -240,11 +280,10 @@ namespace Hangman
                     stopWatch.Stop();
                     TimeSpan ts = stopWatch.Elapsed;
                     int ElapsedTime = ts.Seconds;
-                    Win(lives, Guessed_Letters.Count, ElapsedTime);
+                    Win(lives, Guessed_Letters.Count, ElapsedTime, City_with_country[0]);
                     break;
                 }
-
-                ;
+                StickmanDrawing(lives);
                 UsedLetters(Guessed_Letters);
                 bool chosen_letter = LetterOrCity();
                 if (chosen_letter)
@@ -268,7 +307,7 @@ namespace Hangman
                         stopWatch.Stop();
                         TimeSpan ts = stopWatch.Elapsed;
                         int ElapsedTime = ts.Seconds;
-                        Win(lives, Guessed_Letters.Count, ElapsedTime);
+                        Win(lives, Guessed_Letters.Count, ElapsedTime, City_with_country[0]);
                         break;
                     }
                 }
@@ -315,11 +354,24 @@ namespace Hangman
             }
             Console.WriteLine();
         }
+
+        public static void StickmanDrawing(int lives)
+        {
+            Console.WriteLine();
+            Console.WriteLine();
+            if (lives <= 0)   Console.WriteLine("     0   ");
+            if (lives <= 3)  Console.WriteLine(@"   /'I'\   ");
+            else if(lives==4) Console.WriteLine("   /'I    ");
+            if(lives<=1)     Console.WriteLine(@"    / \     ");
+            else if(lives==2) Console.WriteLine("    /");
+            Console.WriteLine();
+            Console.WriteLine();
+        }
         static void Main(string[] args)
         {
             Game();
             bool newgame = false;
-            Console.WriteLine("Do you want to start new game?");
+            PrintCenter("Do you want to start new game?");
             string answer = Console.ReadLine();
             if (answer == "yes") newgame = true;
             if (answer == "no") newgame = false;
